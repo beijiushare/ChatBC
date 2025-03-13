@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>北酒的聊天:{{ title }}</title>
+    <link rel="stylesheet" href="templates/styles.css" />
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="chat-messages">
+        {% for message in messages %}
+        <div class="message message-{{ message.position }}">
+          <div class="message-container">
+            <img
+              src="img/{{ message.avatar }}"
+              class="avatar"
+              alt="{{ message.speaker }}"
+            />
+            <div class="message-content">
+              <div class="message-text">{{ message.content }}</div>
+              <div class="message-info">{{ message.speaker }}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="control-panel">
+      <div class="screen-toggle">
+        <button class="toggle-btn active" data-width="wide">✥</button>
+        <button class="toggle-btn" data-width="medium">✤</button>
+        <button class="toggle-btn" data-width="narrow">✣</button>
+      </div>
+    </div>
+
+    <script src="templates/script.js"></script>
+  </body>
+</html>

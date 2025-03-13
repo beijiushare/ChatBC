@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>目录展示</title>
+    <style>
+      ul {
+        list-style-type: none;
+        padding-left: 20px;
+      }
+      li {
+        cursor: pointer;
+      }
+      li.file {
+        color: blue;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>目录</h1>
+    <ul id="catalog"></ul>
+
+    <script>
+      async function loadJson() {
+        const response = await fetch("content.json");
+        const data = await response.json();
+        displayCatalog(data, document.getElementById("catalog"));
+      }
+
+      function displayCatalog(data, parentElement) {
+        for (const key in data) {
+          const li = document.createElement("li");
+          if (typeof data[key] === "object") {
+            li.textContent = key;
+            const ul = document.createElement("ul");
+            displayCatalog(data[key], ul);
+            li.appendChild(ul);
+          } else {
+            li.textContent = key;
+            li.classList.add("file");
+            li.addEventListener("click", () => {
+              window.open(`chat/${data[key]}`, "_blank");
+            });
+          }
+          parentElement.appendChild(li);
+        }
+      }
+
+      loadJson();
+    </script>
+  </body>
+</html>
